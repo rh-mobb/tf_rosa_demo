@@ -39,7 +39,7 @@ if [ $? -eq 0 ]; then
     echo "Monitoring logs until cluster provisioning is complete..."
     rosa logs install --cluster $ROSA_CLUSTER_NAME --watch
     echo "Getting final state for storage as TF state..."
-    rosa describe cluster --cluster $ROSA_CLUSTER_NAME --output json | tee state.json
+    rosa describe cluster --cluster $ROSA_CLUSTER_NAME --output json
 else
     echo "Initial cluster creation command failed and returned $?"
 fi
