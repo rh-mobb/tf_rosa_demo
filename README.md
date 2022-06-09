@@ -19,7 +19,7 @@ Additionally, Terraform repos often have a local variables file (`terraform.tfva
 ```hcl
 rosa_cluster_name = "rosa-test"
 rosa_compute_node_count = "3"  # Set to 3 for HA, 2 for single-AZ
-rosa_offline_access_token = **************" # Get from console.redhat.com
+rosa_offline_access_token = "**************" # Get from console.redhat.com
 rosa_version = "4.10.15" # Needs to be a supported version by ROSA
 ```
 **TODO**
