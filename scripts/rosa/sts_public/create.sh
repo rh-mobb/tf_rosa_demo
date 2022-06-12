@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# Create a ROSA cluster using STS and Privatelink
-# Note that *only* private subnets ids can be passed to the 
-# rosa command for privatelink, even if there are exisitng 
-# public subnets in the VPC
+# Create a ROSA cluster using STS
 
 # Authentication
 #rosa login --token $ROSA_OFFLINE_ACCESS_TOKEN
@@ -15,7 +12,6 @@
 
 rosa create cluster \
 --color never \
---private \
 --cluster-name=$ROSA_CLUSTER_NAME \
 --sts \
 --role-arn arn:aws:iam::660250927410:role/ManagedOpenShift-Installer-Role \
@@ -33,17 +29,18 @@ rosa create cluster \
 --pod-cidr 10.128.0.0/14 \
 --host-prefix $ROSA_HOST_PREFIX \
 --subnet-ids $ROSA_SUBNET_IDS \
---yes
+--yes 2>&1 | tee rosa_create_cluster.log
 
 if [ $? -eq 0 ]; then
     echo "Creating operator roles..."
-    rosa create operator-roles --mode auto --yes --cluster $ROSA_CLUSTER_NAME
+    rosa create operator-roles --mode auto --yes --cluster $ROSA_CLUSTER_NAME 2>&1 | tee rosa_create_roles.log
     echo "Creating OIDC provider..."
-    rosa create oidc-provider --mode auto --yes --cluster $ROSA_CLUSTER_NAME
+    rosa create oidc-provider --mode auto --yes --cluster $ROSA_CLUSTER_NAME 2>&1 | tee rosa_create_oidc.log
     echo "Monitoring logs until cluster provisioning is complete..."
     rosa logs install --cluster $ROSA_CLUSTER_NAME --watch
     echo "Getting final state for storage as TF state..."
-    rosa describe cluster --cluster $ROSA_CLUSTER_NAME --output json | tee state.json
+    # For debugging, a '| tee state.json' can be added below
+    rosa describe cluster --cluster $ROSA_CLUSTER_NAME --output json | tee cluster_status_at_install.json
 else
     echo "Initial cluster creation command failed and returned $?"
 fi

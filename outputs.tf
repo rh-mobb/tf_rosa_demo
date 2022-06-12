@@ -17,13 +17,13 @@ output "all_subnets" {
 }
 
 output "cluster_id" {
-    value = shell_script.rosa_sts_private.output["id"]
+    value = shell_script.rosa_sts_public.output["id"]
 }
 
 output "cluster_api_url" {
-    value = jsondecode(shell_script.rosa_sts_private.output["api"]).url
+    value = jsondecode(shell_script.rosa_sts_public.output["api"]).url
 }
 
 output "cluster_console_url" {
-    value = jsondecode(shell_script.rosa_sts_private.output["console"]).url
+    value = jsondecode(shell_script.rosa_sts_public.output["console"]).url
 }

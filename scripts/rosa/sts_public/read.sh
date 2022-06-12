@@ -1,0 +1,1 @@
+rosa describe cluster --cluster $ROSA_CLUSTER_NAME --output json | tee cluster_status_at_read.json

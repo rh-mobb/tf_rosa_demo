@@ -1,8 +1,8 @@
-resource "shell_script" "rosa_sts_private" {
+resource "shell_script" "rosa_sts_public" {
     lifecycle_commands {
-        create  = file("${path.module}/scripts/rosa/sts_private/create.sh")
-        delete  = file("${path.module}/scripts/rosa/sts_private/delete.sh")
-        read    = file("${path.module}/scripts/rosa/sts_private/read.sh")
+        create  = file("${path.module}/scripts/rosa/sts_public/create.sh")
+        delete  = file("${path.module}/scripts/rosa/sts_public/delete.sh")
+        read    = file("${path.module}/scripts/rosa/sts_public/read.sh")
     }
 
     # Note that the rosa CLI command will fail if you pass any
@@ -22,4 +22,10 @@ resource "shell_script" "rosa_sts_private" {
     sensitive_environment = {
         ROSA_OFFLINE_ACCESS_TOKEN = var.rosa_offline_access_token        
     }
+
+    # This is necessary to ensure *all* VPC module resources are built
+    # before the cluster build is launched
+    depends_on = [
+        module.vpc
+    ]
 }
