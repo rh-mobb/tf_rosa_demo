@@ -1,0 +1,15 @@
+#!/bin/bash
+
+rosa login --token $ROSA_OFFLINE_ACCESS_TOKEN
+
+rosa create idp \
+--type ${ idp_type }
+--name ${ idp_name }
+
+%{ if idp_type == 'htpasswd' }
+--username ${ username }
+--password ${ password }
+%{ endif }
+
+
+# github gitlab google htpasswd ldap openid

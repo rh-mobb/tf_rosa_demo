@@ -92,7 +92,7 @@ rosa create cluster \
 
 Creating a "private" actually requires passing both public and private subnet types to the the `rosa` command (as in, it will throw an error if they're not both present). Because the `--multi-az` flag is also present, it requires three of each.
 
-Creating a "privatelink" cluster will actually require that **only** private subnets are passed (again, three required in this case because `--multi-az` is set). This also sets `--private` to the command as well.
+Creating a "privatelink" cluster will actually require that **only** private subnets are passed (again, three required in this case because `--multi-az` is set). This also sets `--private-link` to the command as well.
 
 ```bash
 if [ $? -eq 0 ]; then

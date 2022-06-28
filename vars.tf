@@ -15,8 +15,8 @@ variable "cluster_name" {
 variable "network_type" {
         type = string
         validation {
-            condition = contains(["public", "private"], var.network_type)
-            error_message = "Network type must be one of [public,private]"
+            condition = contains(["public", "private", "privatelink"], var.network_type)
+            error_message = "Network type must be one of [public,private,privatelink]"
         }
 }
 
@@ -52,3 +52,14 @@ variable "offline_access_token" {
     type = string
     description = "The OCM API access token for your account"
 }
+
+/* variable "idp_name" {}
+
+variable "idp_type" {
+    type = string
+    description = "The type of IDP to be provisioned"
+    validation {
+        condition = contains(["github", "gitlab", "google", "htpasswd", "ldap", "openid"], var.idp_type)
+        error_message = "IDP type must be one of [github gitlab google htpasswd ldap openid]"
+    }
+} */

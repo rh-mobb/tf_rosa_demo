@@ -1,4 +1,4 @@
-/* output "public_subnet_ids" {
+output "public_subnet_ids" {
     value = join(",", module.vpc.public_subnets)
 }
 
@@ -9,7 +9,7 @@ output "private_subnet_ids" {
 output "all_subnets" {
     value = join(",", concat(module.vpc.private_subnets, module.vpc.public_subnets))
     description = "For use as '--subnet-ids' parameter in rosa command"
-} */
+}
 
 output "cluster_id" {
     value = shell_script.rosa_cluster.output["id"]
