@@ -48,9 +48,14 @@ variable "host_prefix" {
     default = "23"
 }
 
-variable "offline_access_token" {
+variable "ocm_token" {
     type = string
     description = "The OCM API access token for your account"
+}
+
+variable "operator_role_prefix" {
+  type = string  
+  description = "A prefix value for operator role IDs"
 }
 
 /* variable "idp_name" {}
