@@ -71,3 +71,18 @@ module sts_roles {
         operator_role_prefix = var.operator_role_prefix
     }]
 }
+
+resource "ocm_identity_provider" "htpasswd" {
+  cluster = ocm_cluster.rosa_cluster.id
+  name    = "htpasswd"
+  htpasswd = {
+    username = "admin"
+    password = "L0ngP@ssw0rd!"
+  }
+}
+
+resource "ocm_group_membership" "my_admin" {
+  cluster = ocm_cluster.rosa_cluster.id
+  group   = "dedicated-admins"
+  user    = "admin"
+}
