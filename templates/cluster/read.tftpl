@@ -1,3 +1,0 @@
-#!/bin/bash
-
-rosa describe cluster --cluster ${ cluster_name } --output json | jq 'del( .["version", "openshift-version"])' %{ if debug == true }| tee read.log%{ endif }

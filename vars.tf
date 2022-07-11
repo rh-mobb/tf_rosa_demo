@@ -1,8 +1,3 @@
-variable "aws_account_id" {
-    type = string
-    description = "The AWS account in which the cluster will be built"
-}
-
 variable "aws_region" {
     type = string
 }
@@ -23,12 +18,6 @@ variable "network_type" {
 variable "ocp_version" {
     type = string
     description = "The version of ROSA to be deployed"
-}
-
-variable "external_id" {
-    type = string
-    description = "Optional external ID to link to ROSA cluster"
-    default = ""
 }
 
 variable "compute_node_count" {
@@ -58,13 +47,7 @@ variable "operator_role_prefix" {
   description = "A prefix value for operator role IDs"
 }
 
-/* variable "idp_name" {}
-
-variable "idp_type" {
+variable "ssh_key_name" {
     type = string
-    description = "The type of IDP to be provisioned"
-    validation {
-        condition = contains(["github", "gitlab", "google", "htpasswd", "ldap", "openid"], var.idp_type)
-        error_message = "IDP type must be one of [github gitlab google htpasswd ldap openid]"
-    }
-} */
+    description = "The SSH key name (in AWS) to associate with the bastion"
+}

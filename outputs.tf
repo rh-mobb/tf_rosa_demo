@@ -11,14 +11,6 @@ output "all_subnets" {
     description = "For use as '--subnet-ids' parameter in rosa command"
 }
 
-/* output "cluster_id" {
-    value = shell_script.rosa_cluster.output["id"]
-}
-
-output "cluster_api_url" {
-    value = jsondecode(shell_script.rosa_cluster.output["api"]).url
-}
-
-output "cluster_console_url" {
-    value = jsondecode(shell_script.rosa_cluster.output["console"]).url
+/* output "console_url" {
+    value = ocm_cluster.rosa_cluster.console_url
 } */

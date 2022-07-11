@@ -1,5 +1,0 @@
-#!/bin/bash
-
-rosa login --token $ROSA_OFFLINE_ACCESS_TOKEN
-
-rosa describe admin --cluster ${ cluster_name } | egrep "\s+oc *" | awk '{print "\{ \"admin-username\": \""$5"\"\}"}' | jq
