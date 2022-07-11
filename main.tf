@@ -32,7 +32,7 @@ provider "ocm" {
 provider "okta" {
   org_name  = "dev-34242021"
   base_url  = "okta.com"
-  api_token = "00F85O2r5ai8iPORhV2j6JdYjJmRquhycKiQhXN8l_"
+  api_token = "###"
 }
 
 data "aws_caller_identity" "current" {}
