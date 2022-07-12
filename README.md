@@ -29,6 +29,33 @@ rosa_version = "4.10.15" # Needs to be a supported version by ROSA
 
 For now, this works only when there is a configured set of AWS creds to use and a `rosa login` has already been done, so it's not yet ready for use in an automated environment.
 
+## Terraform
+
+1. Clone this repo down
+
+   ```bash
+   git clone https://github.com/rh-mobb/tf_rosa_demo.git
+   cd tf_rosa_demo
+   ```
+
+1. Initialize Terraform
+
+   ```bash
+   terraform init
+   ```
+
+1. Plan the Terraform configuration
+
+   ```bash
+   terraform plan -out rosa.plan
+   ```
+
+1. Apply the Terraform plan
+
+   ```bash
+   terraform apply rosa.plan
+   ```
+
 ## The VPC
 
 Creating a VPC via Terraform can be done by provisioning individual resources (this example creates 29 separate ones), but AWS provides a [very useful and well-supported Terraform module](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest) for creating VPCs that requires only a few values to be set and handles the heavy lifting. This module is called in the `vpc.tf` file.
@@ -56,16 +83,16 @@ The provider allows for scripts to be designated for the four lifecycle actions 
 1. Read
 1. Destroy
 
-At a minimum, a Create and Update action are needed. The Read action is pretty easy to define in this case as well. 
+At a minimum, a Create and Update action are needed. The Read action is pretty easy to define in this case as well.
 
 The `shell_script` provider renders *all* of the scripts provided at the time of creation of a resource and saves the rendered scripts in state so when the time comes to delete the resource (or if someone deletes is manually), the code is still available to perform the action.
 
-The current layout has specific scripts for specific uses cases (e.g., private with STS, privatelink with STS, etc.) The directory names under `scripts` are reflective of those. 
+The current layout has specific scripts for specific uses cases (e.g., private with STS, privatelink with STS, etc.) The directory names under `scripts` are reflective of those.
 
 ### `create.sh`
 
 
-The reason for separate directories is to handle the need for different flags to the `rosa` command, which is the first block of the script. 
+The reason for separate directories is to handle the need for different flags to the `rosa` command, which is the first block of the script.
 
 ```bash
 rosa create cluster \

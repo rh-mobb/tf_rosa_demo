@@ -1,8 +1,8 @@
 terraform {
     required_providers {
         ocm = {
-            version = ">= 0.1"
-            source = "openshift-online/ocm"
+            version = ">= 0.1.8"
+            source = "rh-mobb/ocm"
         }
         shell = {
             source = "scottwinkler/shell"
@@ -10,9 +10,9 @@ terraform {
         }
     }
 }
- 
+
 provider "ocm" {
-    token = "${var.ocm_token}"
+    token = "${var.offline_access_token}"
 }
 
 provider "aws" {
@@ -34,4 +34,10 @@ provider "shell" {
         # Need to probably have AWS creds
         # Also need to have OCM creds?
     }
+}
+
+data "aws_caller_identity" "current" {}
+
+data "aws_iam_user" "admin" {
+  user_name = "osdCcsAdmin"
 }
