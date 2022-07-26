@@ -58,7 +58,7 @@ resource "ocm_cluster" "rosa_cluster" {
   aws_subnet_ids     = var.enable_private_link ? module.rosa-vpc.private_subnets : concat(module.rosa-vpc.private_subnets, module.rosa-vpc.public_subnets)
   # aws_subnet_ids     = concat(module.rosa-vpc.private_subnets, module.rosa-vpc.public_subnets)
   machine_cidr       = module.rosa-vpc.vpc_cidr_block
-  aws_private_link   = var.enable_private_link ? true : null
+  aws_private_link   = var.enable_private_link
   # aws_private_link   = false
   multi_az           = length(module.rosa-vpc.private_subnets) == 3 ? true : false
   availability_zones = var.availability_zones
@@ -85,6 +85,6 @@ module sts_roles {
     create_account_roles = false
     clusters = [{
         id = ocm_cluster.rosa_cluster.id
-        operator_role_prefix = var.operator_role_prefix
+        operator_role_prefix = var.cluster_name
     }]
 }

@@ -81,12 +81,6 @@ variable "public_subnet_cidrs" {
   default = ["10.66.101.0/24", "10.66.102.0/24", "10.66.103.0/24"]
 }
 
-variable "operator_role_prefix" {
-  type = string
-  description = "The prefix to use for the operator role names"
-  default = "rosa-operator"
-}
-
 variable "enable_private_link" {
   type = bool
   description = "This enables private link"
