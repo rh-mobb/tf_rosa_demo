@@ -87,6 +87,18 @@ variable "operator_role_prefix" {
   default = "rosa-operator"
 }
 
+variable "enable_private_link" {
+  type = bool
+  description = "This enables private link"
+  default = false
+}
+
+variable "enable_sts" {
+  type = bool
+  description = "This enables STS"
+  default = true
+}
+
 # variable "aws_access_key_id" {
 #   type = string
 #   description = "The AWS access key ID to use for the cluster"

@@ -177,3 +177,6 @@ fi
 The delete action uses some similar functionality as create in terms of the `--watch` flag on logs to determine when the cluster is truly deleted, and then cleaning up the operator and OIDC resources.
 
 The first two lines demonstrate another fundamental of Terraform: whatever state is attached to a resource is passed to the provider, which in this case is used to determine the cluster ID. Because the OIDC and operator roles persist after the cluster is gone (and the ability to refer to it by name as well), the ID is needed. In this case, a simple `echo` and query with `jq` gets it.
+
+
+terraform state rm 'ocm_cluster.rosa_cluster'

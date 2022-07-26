@@ -4,10 +4,6 @@ terraform {
             version = ">= 0.1.8"
             source = "rh-mobb/ocm"
         }
-        shell = {
-            source = "scottwinkler/shell"
-            version = "1.7.10"
-        }
     }
 }
 
@@ -26,18 +22,9 @@ provider "aws" {
     }
 }
 
-provider "shell" {
-    interpreter = ["/bin/sh", "-c"]
-    enable_parallelism = false
-
-    sensitive_environment = {
-        # Need to probably have AWS creds
-        # Also need to have OCM creds?
-    }
-}
-
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_user" "admin" {
   user_name = "osdCcsAdmin"
+  count     = var.enable_sts ? 0 : 1
 }

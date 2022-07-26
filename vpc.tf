@@ -1,4 +1,4 @@
-module "vpc" {
+module "rosa-vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = var.cluster_name
