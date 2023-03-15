@@ -1,37 +1,19 @@
 variable "aws_region" {
   type    = string
-  default = "us-east-2"
+  default = "us-east-1"
 }
 
 variable "cluster_name" {
   type        = string
   description = "The name of the ROSA cluster to create"
-  default     = "rosa-cluster"
+  default     = "poc-frontier"
 }
 
-# variable "network_type" {
-#         type = string
-#         validation {
-#             condition = contains(["public", "private"], var.network_type)
-#             error_message = "Network type must be one of [public,private]"
-#         }
-# }
-
-# variable "ocp_version" {
-#     type = string
-#     description = "The version of ROSA to be deployed"
-# }
-
-# variable "external_id" {
-#     type = string
-#     description = "Optional external ID to link to ROSA cluster"
-#     default = ""
-# }
 
 # variable "rosa_version" {
 #   type        = string
 #   description = "The version of ROSA to be deployed"
-#   default     = "4.10.20"
+#   default     = "4.12.5"
 # }
 
 variable "compute_nodes" {
@@ -60,7 +42,7 @@ variable "offline_access_token" {
 variable "availability_zones" {
   type        = list(any)
   description = "The availability zones to use for the cluster"
-  default     = ["us-east-2a", "us-east-2b", "us-east-2c"]
+  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
 }
 
 variable "machine_cidr_block" {
