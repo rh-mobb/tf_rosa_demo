@@ -89,3 +89,7 @@ module "sts_roles" {
     operator_role_prefix = var.cluster_name
   }]
 }
+
+resource "ocm_cluster_wait" "rosa_cluster_wait" {
+  cluster = ocm_cluster.rosa_cluster.id
+}
