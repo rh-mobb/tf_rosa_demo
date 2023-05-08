@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     ocm = {
-      version = ">= 0.1.9"
-      source  = "rh-mobb/ocm"
+      source = "terraform-redhat/ocm"
+      version = "1.0.1"
     }
   }
 }
@@ -22,7 +22,6 @@ provider "aws" {
   }
 }
 
-data "aws_caller_identity" "current" {}
 
 data "aws_iam_user" "admin" {
   user_name = "osdCcsAdmin"
