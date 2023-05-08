@@ -21,7 +21,7 @@ cat << EOF > terraform.auto.tfvars
 cluster_name = "rosa-test"
 compute_nodes = "3"  # Set to 3 for HA, 2 for single-AZ
 offline_access_token = "**************" # Get from https://console.redhat.com/openshift/token/rosa/show
-rosa_version = "4.10.15" # Needs to be a supported version by ROSA
+rosa_version = "4.12.14" # Needs to be a supported version by ROSA
 aws_region           = "us-east-2" # Optional, only if you're not selecting us-west-2 region
 availability_zones   = ["us-east-2a", "us-east-2b", "us-east-2c"] # Optional, only if you're not selecting us-west-2 region
 
