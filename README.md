@@ -2,7 +2,7 @@
 
 The use of Terraform to manage the lifecycle of cloud resources is an extremely common pattern, and has led to a number of customer questions around "How can I manage ROSA with Terraform?"
 
-This repo contains a working example of how to use Terraform to provision a ROSA cluster on a customer-provided VPC using an unsupported TF provider.
+This repo contains a working example of how to use Terraform to provision a ROSA cluster on a customer-provided VPC using [Red Hat Terraform provider](https://registry.terraform.io/providers/terraform-redhat/ocm/latest).
 
 ## Prerequisites
 
