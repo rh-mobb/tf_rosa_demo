@@ -61,3 +61,23 @@ resource "ocm_cluster_wait" "rosa" {
   timeout = 60
 }
 
+resource "ocm_identity_provider" "rosa_iam_htpasswd" {
+   cluster = ocm_cluster_rosa_classic.rosa.id
+   name = "htpasswd"
+   htpasswd = {
+	username = var.htpasswd_username
+   	password = var.htpasswd_password
+   }
+   depends_on = [
+     ocm_cluster_wait.rosa
+   ]
+}
+
+resource "ocm_group_membership" "htpasswd_admin" {
+  cluster = ocm_cluster_rosa_classic.rosa.id
+  group   = "cluster-admins"
+  user    = var.htpasswd_username
+  depends_on = [
+    ocm_cluster_wait.rosa
+  ]
+}

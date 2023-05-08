@@ -88,11 +88,22 @@ variable "enable_sts" {
   default     = true
 }
 
-variable "operator_role_prefix" {
-  type = string
+#variable "operator_role_prefix" {
+#  type = string
+#}
+
+#variable "account_role_prefix" {
+#  type = string
+#}
+
+variable "htpasswd_username" {
+  type        = string
+  description = "htpasswd username"
+  default     = "kubeadmin"
 }
 
-variable "account_role_prefix" {
-  type = string
+variable "htpasswd_password" {
+  type        = string
+  description = "htpasswd password"
+  sensitive   = true
 }
-

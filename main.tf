@@ -23,7 +23,7 @@ provider "aws" {
 }
 
 
-data "aws_iam_user" "admin" {
-  user_name = "osdCcsAdmin"
-  count     = var.enable_sts ? 0 : 1
-}
+#data "aws_iam_user" "admin" {
+#  user_name = "osdCcsAdmin"
+#  count     = var.enable_sts ? 0 : 1
+#}
