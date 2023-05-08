@@ -17,24 +17,19 @@ variable "cluster_name" {
 #         }
 # }
 
-# variable "ocp_version" {
-#     type = string
-#     description = "The version of ROSA to be deployed"
-# }
-
 # variable "external_id" {
 #     type = string
 #     description = "Optional external ID to link to ROSA cluster"
 #     default = ""
 # }
 
-# variable "rosa_version" {
-#   type        = string
-#   description = "The version of ROSA to be deployed"
-#   default     = "4.10.20"
-# }
+ variable "rosa_version" {
+   type        = string
+   description = "The version of ROSA to be deployed"
+   default     = "4.10.20"
+ }
 
-variable "compute_nodes" {
+variable "replicas" {
   type        = string
   description = "The number of computer nodes to create. Must be a minimum of 2 for a single-AZ cluster, 3 for multi-AZ."
   default     = "3"
@@ -93,13 +88,22 @@ variable "enable_sts" {
   default     = true
 }
 
-# variable "aws_access_key_id" {
-#   type = string
-#   description = "The AWS access key ID to use for the cluster"
-# }
+#variable "operator_role_prefix" {
+#  type = string
+#}
 
-# variable "aws_secret_access_key" {
-#   type = string
-#   description = "The AWS secret access key to use for the cluster"
-# }
+#variable "account_role_prefix" {
+#  type = string
+#}
 
+variable "htpasswd_username" {
+  type        = string
+  description = "htpasswd username"
+  default     = "kubeadmin"
+}
+
+variable "htpasswd_password" {
+  type        = string
+  description = "htpasswd password"
+  sensitive   = true
+}
