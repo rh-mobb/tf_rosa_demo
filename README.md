@@ -24,6 +24,9 @@ offline_access_token = "**************" # Get from https://console.redhat.com/op
 rosa_version = "4.10.15" # Needs to be a supported version by ROSA
 aws_region           = "us-east-2" # Optional, only if you're not selecting us-west-2 region
 availability_zones   = ["us-east-2a", "us-east-2b", "us-east-2c"] # Optional, only if you're not selecting us-west-2 region
+
+htpasswd_username = "kubeadmin"
+htpasswd_password = "*********"
 EOF
 ```
 
