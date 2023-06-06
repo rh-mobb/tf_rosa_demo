@@ -4,7 +4,11 @@ terraform {
       source = "terraform-redhat/ocm"
       version = "1.0.1"
     }
-  }
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 4.0" 
+    }
+ }
 }
 
 provider "ocm" {

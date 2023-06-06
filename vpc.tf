@@ -1,5 +1,6 @@
 module "rosa-vpc" {
   source = "terraform-aws-modules/vpc/aws"
+  version = "4.0.0"
 
   name = var.cluster_name
   cidr = var.machine_cidr_block
