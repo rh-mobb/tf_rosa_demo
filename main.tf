@@ -1,18 +1,19 @@
 terraform {
   required_providers {
-    ocm = {
-      source = "terraform-redhat/ocm"
-      version = "1.0.1"
+    rhcs = {
+      version = ">= 1.0.5"
+      source  = "terraform-redhat/rhcs"
     }
     aws = {
-      source = "hashicorp/aws"
-      version = "~> 4.0" 
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
     }
- }
+  }
 }
 
-provider "ocm" {
+provider "rhcs" {
   token = var.offline_access_token
+  url   = var.url
 }
 
 provider "aws" {
@@ -25,7 +26,6 @@ provider "aws" {
     key_prefixes = ["kubernetes.io/"]
   }
 }
-
 
 #data "aws_iam_user" "admin" {
 #  user_name = "osdCcsAdmin"
