@@ -1,1 +1,0 @@
-rosa describe cluster --cluster $ROSA_CLUSTER_NAME --output json

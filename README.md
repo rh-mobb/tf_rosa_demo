@@ -19,7 +19,7 @@ Additionally, Terraform repos often have a local variables file (`terraform.tfva
 ```hcl
 cat << EOF > terraform.auto.tfvars
 cluster_name = "rosa-test"
-compute_nodes = "3"  # Set to 3 for HA, 2 for single-AZ
+replicas = "3"  # Set to 3 for HA, 2 for single-AZ
 offline_access_token = "**************" # Get from https://console.redhat.com/openshift/token/rosa/show
 rosa_version = "4.12.14" # Needs to be a supported version by ROSA
 aws_region           = "us-east-2" # Optional, only if you're not selecting us-west-2 region
@@ -29,6 +29,8 @@ htpasswd_username = "kubeadmin"
 htpasswd_password = "*********"
 EOF
 ```
+
+> NOTE: for single-AZ, adjust also the vars public_subnet_cidrs, private_subnet_cidrs and availability_zones to reflect properly.
 
 ## Getting Started
 
