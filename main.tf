@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     rhcs = {
-      version = ">= 1.0.5"
+      version = "~> 1.2"
       source  = "terraform-redhat/rhcs"
     }
     aws = {
@@ -27,7 +27,8 @@ provider "aws" {
   }
 }
 
-#data "aws_iam_user" "admin" {
-#  user_name = "osdCcsAdmin"
-#  count     = var.enable_sts ? 0 : 1
-#}
+data "aws_caller_identity" "current" {}
+
+data "rhcs_rosa_operator_roles" "operator_roles" {
+  operator_role_prefix = var.cluster_name
+}

@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 locals {
   sts_roles = {
     role_arn         = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ManagedOpenShift-Installer-Role",
@@ -31,15 +29,9 @@ resource "rhcs_cluster_rosa_classic" "rosa" {
   version              = var.rosa_version
   machine_cidr         = module.rosa-vpc.vpc_cidr_block
   properties           = { rosa_creator_arn = data.aws_caller_identity.current.arn }
-  sts                  = var.enable_sts ? local.sts_roles : null
+  sts                  = local.sts_roles
   depends_on           = [module.rosa-vpc]
 }
-
-
-data "rhcs_rosa_operator_roles" "operator_roles" {
-  operator_role_prefix = var.cluster_name
-}
-
 
 module "operator_roles" {
   source  = "terraform-redhat/rosa-sts/aws"
@@ -79,4 +71,21 @@ resource "rhcs_group_membership" "htpasswd_admin" {
   depends_on = [
     rhcs_cluster_wait.rosa
   ]
+}
+
+output "rosa_api" {
+  value = rhcs_cluster_rosa_classic.rosa.api_url
+}
+
+output "rosa_console" {
+  value = rhcs_cluster_rosa_classic.rosa.console_url
+}
+
+output "rosa_htpasswd_username" {
+  value = rhcs_identity_provider.rosa_iam_htpasswd.htpasswd.username
+}
+
+output "rosa_htpasswd_password" {
+  value = rhcs_identity_provider.rosa_iam_htpasswd.htpasswd.password
+  sensitive = true
 }

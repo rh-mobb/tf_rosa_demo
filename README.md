@@ -47,43 +47,87 @@ EOF
    terraform init
    ```
 
-### Public ROSA Cluster in STS mode
+### Public ROSA Cluster
 
 > Note: this is the default behavior for the Terraform code and will result in a public ROSA cluster in STS mode.
 
 1. Check for any variables in `vars.tf` that you want to change such as the cluster name.
 
-1. Plan the Terraform configuration
+1. Create the cluster
 
-   ```bash
-   terraform plan -out rosa.plan
-   ```
+      ```bash
+      make create.public
+      ```
 
-1. Apply the Terraform plan
+      This does the equivalent of
 
-   ```bash
-   terraform apply rosa.plan
-   ```
+      1. Plan the Terraform configuration
 
-### Private-Link ROSA Cluster in STS mode
+         ```bash
+         terraform plan -out rosa.plan
+         ```
 
-> This will create a Private-Link ROSA cluster in STS mode, it will use a public subnet for egress traffic (Nat GW / Internet Gateway) and a private subnet for the cluster itself and its ingress (API, default route, etc).
+      1. Apply the Terraform plan
+
+         ```bash
+         terraform apply rosa.plan
+         ```
+
+1. If the command above provides empty strings for the `rosa_api` and `rosa_console` outputs, you can run it again to refresh Terraform's state.
+
+      ```bash
+      make create.public
+      ```
+
+      ```
+      Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+      Outputs:
+
+      rosa_api = "https://api.tf-pczarkow.e245.p1.openshiftapps.com:6443"
+      rosa_console = "https://console-openshift-console.apps.tf-pczarkow.e245.p1.openshiftapps.com"
+      rosa_htpasswd_password = <sensitive>
+      rosa_htpasswd_username = "kubeadmin"
+      ```
+
+1. use the outputs to log in to your cluster
+
+      ```bash
+      oc login $(terraform output -raw rosa_api) \
+        --username "$(terraform output -raw rosa_htpasswd_username)" \
+        --password "$(terraform output -raw rosa_htpasswd_password)"
+      ```
+
+### Private-Link ROSA Cluster
+
+> This will create a Private-Link ROSA cluster, it will use a public subnet for egress traffic (Nat GW / Internet Gateway) and a private subnet for the cluster itself and its ingress (API, default route, etc).
 
 1. Check for any variables in `vars.tf` that you want to change such as the cluster name.
 
-1. Plan the Terraform configuration
+1. Create the cluster
 
-   > Note: You can set the `enable_private_link` variable in your `.tfvars` if you prefer.
+      ```bash
+      make create.privatelink
+      ```
 
-   ```bash
-   terraform plan -var "enable_private_link=true" -out rosa.plan
-   ```
+      This does the equivalent of
 
-1. Apply the Terraform plan
+      1. Plan the Terraform configuration
 
-   ```bash
-   terraform apply rosa.plan
-   ```
+         > Note: You can set the `enable_private_link` variable in your `.tfvars` if you prefer.
+
+         ```bash
+         terraform plan -var "enable_private_link=true" -out rosa.plan
+         ```
+
+      1. Apply the Terraform plan
+
+         ```bash
+         terraform apply rosa.plan
+         ```
+
+1. To access this cluster you'll need access into your VPC via a jumphost or similar.
+
 
 ## Further reading
 

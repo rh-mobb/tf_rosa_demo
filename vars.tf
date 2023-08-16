@@ -82,12 +82,6 @@ variable "enable_private_link" {
   default     = false
 }
 
-variable "enable_sts" {
-  type        = bool
-  description = "This enables STS"
-  default     = true
-}
-
 #variable "operator_role_prefix" {
 #  type = string
 #}
