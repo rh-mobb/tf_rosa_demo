@@ -54,10 +54,12 @@ resource "rhcs_cluster_wait" "rosa" {
 
 resource "rhcs_identity_provider" "rosa_iam_htpasswd" {
   cluster = rhcs_cluster_rosa_classic.rosa.id
-  name    = "htpasswd"
+  name    = "httpasswd"
   htpasswd = {
-    username = var.htpasswd_username
-    password = var.htpasswd_password
+    users = [{
+      username = var.htpasswd_username
+      password = var.htpasswd_password
+    }]
   }
   depends_on = [
     rhcs_cluster_wait.rosa
@@ -82,10 +84,10 @@ output "rosa_console" {
 }
 
 output "rosa_htpasswd_username" {
-  value = rhcs_identity_provider.rosa_iam_htpasswd.htpasswd.username
+  value = rhcs_identity_provider.rosa_iam_htpasswd.htpasswd.users[0].username
 }
 
 output "rosa_htpasswd_password" {
-  value = rhcs_identity_provider.rosa_iam_htpasswd.htpasswd.password
+  value = rhcs_identity_provider.rosa_iam_htpasswd.htpasswd.users[0].password
   sensitive = true
 }

@@ -6,7 +6,7 @@ variable "aws_region" {
 variable "cluster_name" {
   type        = string
   description = "The name of the ROSA cluster to create"
-  default     = "rosa-cluster"
+  default     = "nddemo-restricted"
 }
 
 # variable "network_type" {
@@ -26,7 +26,7 @@ variable "cluster_name" {
 variable "rosa_version" {
   type        = string
   description = "The version of ROSA to be deployed"
-  default     = "4.12.14"
+  default     = "4.13.2"
 }
 
 variable "replicas" {

@@ -16,6 +16,6 @@ module "rosa-vpc" {
   # tags = {
   #   Terraform = "true"
   #   Environment = "dev"
-  #   Owner = "thhubbar@redhat.com"
+  #   Owner = "nedoshi@redhat.com"
   # }
 }
